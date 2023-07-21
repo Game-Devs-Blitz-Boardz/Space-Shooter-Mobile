@@ -23,22 +23,28 @@ public class PlayerControls : MonoBehaviour
         StartCoroutine(SetBoundaries());
     }
 
-    void Update()
-    {
-        if (Touch.fingers[0].isActive ) {
-            Touch myTouch = Touch.activeTouches[0];
-            Vector3 touchPos = myTouch.screenPosition;
-            touchPos = mainCam.ScreenToWorldPoint(touchPos);
+    void Update() {
 
-            if (Touch.activeTouches[0].phase == TouchPhase.Began) {
-                offset = touchPos - transform.position;
-            } else if(Touch.activeTouches[0].phase == TouchPhase.Moved || Touch.activeTouches[0].phase == TouchPhase.Stationary) {
-                transform.position = new Vector3(touchPos.x - offset.x, touchPos.y - offset.y, 0);    
+        if (Touch.activeTouches[0].finger.index == 0) {
+            if (Touch.fingers[0].isActive ) {
+                Touch myTouch = Touch.activeTouches[0];
+                Vector3 touchPos = myTouch.screenPosition;
+                #if UNITY_EDITOR
+                    if (touchPos.x == Mathf.Infinity) return;
+                #endif
+                touchPos = mainCam.ScreenToWorldPoint(touchPos);
+
+                if (Touch.activeTouches[0].phase == TouchPhase.Began) {
+                    offset = touchPos - transform.position;
+                } else if(Touch.activeTouches[0].phase == TouchPhase.Moved || Touch.activeTouches[0].phase == TouchPhase.Stationary) {
+                    transform.position = new Vector3(touchPos.x - offset.x, touchPos.y - offset.y, 0);    
+                }
+
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, maxLeft, maxRight),
+                                                Mathf.Clamp(transform.position.y, maxDown, maxUp), 0);
             }
-
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, maxLeft, maxRight),
-                                             Mathf.Clamp(transform.position.y, maxDown, maxUp), 0);
         }
+
     }
 
     void OnEnable() {

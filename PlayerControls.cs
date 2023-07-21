@@ -11,9 +11,19 @@ public class PlayerControls : MonoBehaviour
     Camera mainCam;
     Vector3 offset;
 
+    float maxLeft;
+    float maxRight;
+    float maxUp;
+    float maxDown;
+
     void Start()
     {
         mainCam = Camera.main;
+
+        maxLeft = mainCam.ViewportToWorldPoint(new Vector2(0.15f, 0)).x;
+        maxRight = mainCam.ViewportToWorldPoint(new Vector2(0.85f, 0)).x;
+        maxDown = mainCam.ViewportToWorldPoint(new Vector2(0, 0.05f)).y;;
+        maxUp = mainCam.ViewportToWorldPoint(new Vector2(0, 0.6f)).y;
     }
 
     void Update()
@@ -28,6 +38,9 @@ public class PlayerControls : MonoBehaviour
             } else if(Touch.activeTouches[0].phase == TouchPhase.Moved || Touch.activeTouches[0].phase == TouchPhase.Stationary) {
                 transform.position = new Vector3(touchPos.x - offset.x, touchPos.y - offset.y, 0);    
             }
+
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, maxLeft, maxRight),
+                                             Mathf.Clamp(transform.position.y, maxDown, maxUp), 0);
         }
     }
 

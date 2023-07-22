@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void takeDamage(float dmg) {
+    public void TakeDamage(float dmg) {
         health -= dmg;
         HurtSequence();
         if (health<=0) {

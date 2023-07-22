@@ -35,4 +35,8 @@ public class Meteor : Enemy
             Destroy(other.gameObject);
         }
     }
+
+    void OnBecameInvisible() {
+        Destroy(gameObject);
+    }
 }

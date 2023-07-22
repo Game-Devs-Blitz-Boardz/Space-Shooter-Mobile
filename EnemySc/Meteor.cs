@@ -33,7 +33,10 @@ public class Meteor : Enemy
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);
+            PlayerStats player = other.GetComponent<PlayerStats>();
+            player.PlayerTakeDamage(damage);
+            Destroy(gameObject);
         }
     }
 

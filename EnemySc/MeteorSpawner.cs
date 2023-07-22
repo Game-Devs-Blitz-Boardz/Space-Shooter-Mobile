@@ -27,7 +27,7 @@ public class MeteorSpawner : MonoBehaviour
         if (timer > spawnTime) {
             i = Random.Range(0, meteor.Length);
             GameObject obj = Instantiate(meteor[i], new Vector3(Random.Range(maxLeft, maxRight), yPos, -5), Quaternion.Euler(0, 0, Random.Range(0, 360)));
-            float size = Random.Range(09.9f, 1.1f);
+            float size = Random.Range(0.9f, 1.1f);
             obj.transform.localScale = new Vector3(size, size, 1);
             timer = 0;
         }

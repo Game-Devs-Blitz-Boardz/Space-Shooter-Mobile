@@ -21,6 +21,8 @@ public class WinCondition : MonoBehaviour
             for (int i = 0; i < spawners.Length; i++) {
                 spawners[i].SetActive(false);
             }
+            EndGameManager.endManager.StartResolveSequence();
+            gameObject.SetActive(false);
         }
     }
 }

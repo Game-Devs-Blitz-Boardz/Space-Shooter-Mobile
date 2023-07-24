@@ -11,15 +11,15 @@ public class PanelController : MonoBehaviour
 
     void Start()
     {
-        
+        EndGameManager.endManager.RegisterPanelController(this);
     }
 
-    void ActivateWin() {
+    public void ActivateWin() {
         cGroup.alpha = 1;
         winSreen.SetActive(true);
     }
 
-    void ActivateLose() {
+    public void ActivateLose() {
         cGroup.alpha = 1;
         loseSreen.SetActive(true);
     }

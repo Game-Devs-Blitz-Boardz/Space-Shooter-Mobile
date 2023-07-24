@@ -28,6 +28,7 @@ public class PlayerStats : MonoBehaviour {
             StartCoroutine(AntiSpamAnimation());
         }
         if (health <= 0) {
+            EndGameManager.endManager.gameOver = true;
             Instantiate(explosionPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }

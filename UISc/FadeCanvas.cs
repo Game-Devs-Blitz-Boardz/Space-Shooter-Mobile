@@ -39,6 +39,7 @@ public class FadeCanvas : MonoBehaviour {
         loadingScreen.SetActive(false);
         fadeStarted = false;
         while (cG.alpha > 0) {
+            if (fadeStarted) yield break;
             cG.alpha -= changeValue;
             yield return new WaitForSeconds(waitTime);
         }

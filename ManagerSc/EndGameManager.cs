@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EndGameManager : MonoBehaviour
 {
@@ -9,12 +10,20 @@ public class EndGameManager : MonoBehaviour
     public bool gameOver = false;
 
     PanelController panelController;
+    TextMeshProUGUI scoreTextComponent;
+
+    int score;
 
     void Awake() {
         if (endManager == null) {
             endManager = this;
             DontDestroyOnLoad(gameObject);
         } else Destroy(gameObject);
+    }
+
+    public void UpdateScore(int addScore) {
+        score += addScore;
+        scoreTextComponent.text = "Score: " + score.ToString();
     }
 
     public void StartResolveSequence()
@@ -45,6 +54,10 @@ public class EndGameManager : MonoBehaviour
 
     public void LoseGame() {
         panelController.ActivateLose();
+    }
+
+    public void RegisterScoreText(TextMeshProUGUI scoreTextComp) {
+        scoreTextComponent = scoreTextComp;
     }
 
 }

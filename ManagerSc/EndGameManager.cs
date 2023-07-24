@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class EndGameManager : MonoBehaviour
@@ -48,16 +49,27 @@ public class EndGameManager : MonoBehaviour
         panelController = pC;
     }
 
+    public void RegisterScoreText(TextMeshProUGUI scoreTextComp) {
+        scoreTextComponent = scoreTextComp;
+    }
+
     public void WinGame() {
+        ScoreSet();
         panelController.ActivateWin();
     }
 
     public void LoseGame() {
+        ScoreSet();
         panelController.ActivateLose();
     }
 
-    public void RegisterScoreText(TextMeshProUGUI scoreTextComp) {
-        scoreTextComponent = scoreTextComp;
+    void ScoreSet() {
+        PlayerPrefs.SetInt("Score"+SceneManager.GetActiveScene().name, score);
+        int highScore = PlayerPrefs.GetInt("HighScore"+SceneManager.GetActiveScene().name, 0);
+        if (score > highScore) {
+            PlayerPrefs.SetInt("HighScore"+SceneManager.GetActiveScene().name, score);
+        }
+        score = 0;
     }
 
 }

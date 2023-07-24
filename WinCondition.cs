@@ -16,7 +16,7 @@ public class WinCondition : MonoBehaviour
 
     void Update()
     {
-        if (EndGameManager.endManager.gameOver == true) return;
+        // if (EndGameManager.endManager.gameOver == true) return;
         timer += Time.deltaTime;
         if (timer >= possibleWinTime) {
             for (int i = 0; i < spawners.Length; i++) {

@@ -9,14 +9,26 @@ public class Shield : MonoBehaviour
     int hitsTaken = 0;
     public bool protection = false;
 
+    [SerializeField] GameObject[] shieldBases;
+    int activeShields;
+
     void OnEnable() {
         hitsTaken = 0;
+        for (int i = 0; i < shieldBases.Length; i++) {
+            shieldBases[i].SetActive(true);
+            activeShields++;
+        }
         protection = true;
     }
 
+    void UpdateUI() {
+        shieldBases[activeShields - 1].SetActive(false);
+        activeShields--;
+    }
 
     void DamageShield() {
         hitsTaken++;
+        UpdateUI();
         if (hitsTaken == hitsToDestroy) {
             protection = false;
             gameObject.SetActive(false);
@@ -25,6 +37,7 @@ public class Shield : MonoBehaviour
 
     public void RepairShield() {
         hitsTaken = 0;
+        activeShields = shieldBases.Length;
     }
 
     void OnTriggerEnter2D(Collider2D other) {

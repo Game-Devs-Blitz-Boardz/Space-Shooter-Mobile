@@ -13,6 +13,8 @@ public class BossController : MonoBehaviour
 {
 
     [SerializeField] BossEnter bossEnter;
+    [SerializeField] BossFire bossFire;
+
     [SerializeField] bool test;
     [SerializeField] BossState testState;
 
@@ -27,7 +29,7 @@ public class BossController : MonoBehaviour
                 bossEnter.RunState();
                 break;
             case BossState.fire:
-                Debug.Log("Do something with");
+                bossFire.RunState();
                 break;
             case BossState.special:
                 Debug.Log("Do something with");

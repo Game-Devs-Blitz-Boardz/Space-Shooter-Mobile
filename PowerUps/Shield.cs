@@ -38,6 +38,10 @@ public class Shield : MonoBehaviour
     public void RepairShield() {
         hitsTaken = 0;
         activeShields = shieldBases.Length;
+        for (int i = 0; i < shieldBases.Length; i++) {
+            shieldBases[i].SetActive(true);
+            activeShields++;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {

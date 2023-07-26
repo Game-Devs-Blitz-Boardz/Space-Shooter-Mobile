@@ -13,6 +13,8 @@ public class PlayerStats : MonoBehaviour {
     [SerializeField] protected GameObject explosionPrefab;
     [SerializeField] Shield shield;
 
+    PlayerShooting playerShooting;
+
     bool canPlayAnim = true;
 
     void Start()
@@ -20,6 +22,7 @@ public class PlayerStats : MonoBehaviour {
         health = maxHealth;
         healthFill.fillAmount = health / maxHealth;
         EndGameManager.endManager.gameOver = false;
+        playerShooting = GetComponent<PlayerShooting>();
     }
 
     public void PlayerTakeDamage(float damage) {
@@ -30,6 +33,7 @@ public class PlayerStats : MonoBehaviour {
             anim.SetTrigger("Damage");
             StartCoroutine(AntiSpamAnimation());
         }
+        playerShooting.DecreaseUpgrade(1);
         if (health <= 0) {
             EndGameManager.endManager.gameOver = true;
             Instantiate(explosionPrefab, transform.position, transform.rotation);

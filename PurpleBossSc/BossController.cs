@@ -11,15 +11,20 @@ public enum BossState {
 
 public class BossController : MonoBehaviour
 {
+
+    [SerializeField] BossEnter bossEnter;
+    [SerializeField] bool test;
+    [SerializeField] BossState testState;
+
     void Start()
     {
-        
+        if (test) ChangeState(testState);
     }
 
     public void ChangeState(BossState state) {
         switch (state) {
             case BossState.enter:
-                Debug.Log("Do something with");
+                bossEnter.RunState();
                 break;
             case BossState.fire:
                 Debug.Log("Do something with");

@@ -46,6 +46,11 @@ public class Shield : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.TryGetComponent(out Enemy enemy)) {
+            if (other.tag == "Boss")  {
+                hitsTaken = 2;
+                DamageShield();
+                return;
+            }
             enemy.TakeDamage(1000);
             DamageShield();
         } else {

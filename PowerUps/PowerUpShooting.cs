@@ -15,4 +15,8 @@ public class PowerUpShooting : MonoBehaviour
         }
     }
 
+    void OnBecameInvisible() {
+        Destroy(gameObject);
+    }
+
 }

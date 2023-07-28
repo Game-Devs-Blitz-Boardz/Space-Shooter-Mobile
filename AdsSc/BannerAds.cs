@@ -4,7 +4,6 @@ using UnityEngine.Advertisements;
 public class BannerAd : MonoBehaviour
 {
 
-    [SerializeField] int num;
     [SerializeField] string _androidAdUnitId = "Banner_Android";
     [SerializeField] string _iOSAdUnitId = "Banner_iOS";
     string _adUnitId = null;

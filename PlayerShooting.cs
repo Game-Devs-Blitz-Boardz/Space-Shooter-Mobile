@@ -21,6 +21,9 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] Transform leftRotationCanon;
     [SerializeField] Transform rightRotationCanon;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource audioSource;
+
     int upgradeLevel = 0;
 
     float intervalReset;
@@ -55,6 +58,7 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void Shoot() {
+        audioSource.Play();
         switch(upgradeLevel) {
             case 0:
                 Instantiate(laserBullet, basicShootPoint.position, Quaternion.identity);
@@ -87,6 +91,5 @@ public class PlayerShooting : MonoBehaviour
             default:
                 break;
         }
-        // Instantiate(laserBullet, basicShootPoint.position, Quaternion.identity);
     }
 }

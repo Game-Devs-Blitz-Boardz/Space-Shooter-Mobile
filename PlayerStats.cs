@@ -19,9 +19,9 @@ public class PlayerStats : MonoBehaviour {
 
     void Start()
     {
+        EndGameManager.endManager.gameOver = false;
         health = maxHealth;
         healthFill.fillAmount = health / maxHealth;
-        EndGameManager.endManager.gameOver = false;
         playerShooting = GetComponent<PlayerShooting>();
     }
 

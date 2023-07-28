@@ -18,7 +18,14 @@ public class WinCondition : MonoBehaviour
 
     void Update()
     {
-        // if (EndGameManager.endManager.gameOver == true) return;
+        if (EndGameManager.endManager.gameOver == true) {
+            for (int i = 0; i < spawners.Length; i++) {
+                spawners[i].SetActive(false);
+            }
+            EndGameManager.endManager.StartResolveSequence();
+            gameObject.SetActive(false);
+            return;
+        }
         timer += Time.deltaTime;
         if (timer >= possibleWinTime) {
             if (!hasBoss) {

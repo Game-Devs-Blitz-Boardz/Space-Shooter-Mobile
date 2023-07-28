@@ -22,7 +22,7 @@ public class EndGameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         } else Destroy(gameObject);
     }
-
+    
     public void UpdateScore(int addScore) {
         score += addScore;
         scoreTextComponent.text = "Score: " + score.ToString();

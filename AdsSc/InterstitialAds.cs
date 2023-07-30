@@ -4,7 +4,7 @@ using UnityEngine.Advertisements;
 public class InterstitialAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     [SerializeField] string _androidAdUnitId = "Interstitial_Android";
-    [SerializeField] string _iOsAdUnitId = "Interstitial_iOS";
+    [SerializeField] string _iOSAdUnitId = "Interstitial_iOS";
     [SerializeField] BannerAd bannerAd;
     [SerializeField] int timeToSkip = 1;
     string _adUnitId;

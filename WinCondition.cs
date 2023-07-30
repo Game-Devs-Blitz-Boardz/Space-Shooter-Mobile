@@ -10,32 +10,55 @@ public class WinCondition : MonoBehaviour
     [SerializeField] GameObject[] spawners;
     [SerializeField] bool hasBoss;
     public bool canSpawnBoss = false;
+    public bool hasWatchedAd = false;
 
-    void Start()
+    void OnEnable()
     {
-        
+        if (EndGameManager.endManager.gameOver == false) {
+            gameObject.SetActive(true);
+        }
     }
 
     void Update()
     {
+
+        timer += Time.deltaTime;
+
+        if (hasWatchedAd) Debug.Log("this workds ");
+
         if (EndGameManager.endManager.gameOver == true) {
+
             for (int i = 0; i < spawners.Length; i++) {
                 spawners[i].SetActive(false);
             }
+
             EndGameManager.endManager.StartResolveSequence();
             gameObject.SetActive(false);
             return;
         }
-        timer += Time.deltaTime;
+
         if (timer >= possibleWinTime) {
+            
+            
             if (!hasBoss) {
+                EndGameManager.endManager.possibleWin = true;
                 EndGameManager.endManager.StartResolveSequence();
+                gameObject.SetActive(false); //
             } else canSpawnBoss = true;
+
             for (int i = 0; i < spawners.Length; i++) {
                 spawners[i].SetActive(false);
             }
-            EndGameManager.endManager.StartResolveSequence();
-            gameObject.SetActive(false);
+
+            // EndGameManager.endManager.StartResolveSequence();
+            // gameObject.SetActive(false);
         }
     }
+
+    public void ActivateSpawners() {
+        for (int i = 0; i < spawners.Length; i++) {
+            spawners[i].SetActive(true);
+        }
+    }
+
 }

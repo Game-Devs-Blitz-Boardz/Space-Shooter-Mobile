@@ -7,11 +7,11 @@ using Unity.Notifications.iOS;
 
 public class iOSExampleNotification : MonoBehaviour
 {
-    [SerializeField] string notificationId;
+    [SerializeField] string notificationId = "exampleNotif";
 
 #if UNITY_IOS
     public void NotificationExample (string notificationId) {
-        iOSExampleNotification notification = new iOSExampleNotification() {
+        iOSNotification notification = new iOSNotification() {
             Identifier = notificationId,
             Title = "Example Title",
             Subtitle = "Where are you?",
@@ -29,7 +29,7 @@ public class iOSExampleNotification : MonoBehaviour
 
     void OnApplicationFocus(bool focusStatus) {
         if (focusStatus == false) {
-            NotificationExample();
+            NotificationExample(notificationId);
         } else {
             iOSNotificationCenter.RemoveScheduledNotification(notificationId);
         }

@@ -49,11 +49,13 @@ public class EnemySpawner : MonoBehaviour
     }   
 
     void OnDisable() {
-        if (!winCondition.canSpawnBoss) return;
+        Debug.Log("has been disabled");
+        if (winCondition.canSpawnBoss == false) return;
 
-        if (bossPrefab != null) {
+        // if (bossPrefab != null) {
+            Debug.Log("in this condition");
             Vector2 spawnPos = mainCam.ViewportToWorldPoint(new Vector2(0.5f, 1.2f));
             Instantiate(bossPrefab, spawnPos, Quaternion.identity);
-        }    
+        // }    
     }
 }

@@ -9,11 +9,16 @@ public class EndGameManager : MonoBehaviour
 
     public static EndGameManager endManager;
     public bool gameOver = false;
+    public bool possibleWin;
 
     PanelController panelController;
     TextMeshProUGUI scoreTextComponent;
+    PlayerStats playerStats;
+    RewardedAds rewardedAds;
+    WinCondition winCondition;
 
-    int score;
+
+    public int score;
     [HideInInspector] public string levlUnlock = "LevelUnlock";
 
     void Awake() {
@@ -21,8 +26,9 @@ public class EndGameManager : MonoBehaviour
             endManager = this;
             DontDestroyOnLoad(gameObject);
         } else Destroy(gameObject);
+        winCondition = FindObjectOfType<WinCondition>();
     }
-
+    
     public void UpdateScore(int addScore) {
         score += addScore;
         scoreTextComponent.text = "Score: " + score.ToString();
@@ -39,9 +45,15 @@ public class EndGameManager : MonoBehaviour
     }
 
     public void ResloveGame() {
-        if (gameOver == false) {
+        if (gameOver == false && possibleWin == true) {
             WinGame();
-        } else if (gameOver == true){
+        } else if (gameOver == true && possibleWin == false) {
+            if (winCondition.canSpawnBoss) {
+                LoseGame();
+                return;
+            }
+            AdLoseGame();
+        } else if (gameOver == true && possibleWin == true) {
             LoseGame();
         }
     }
@@ -54,7 +66,16 @@ public class EndGameManager : MonoBehaviour
         scoreTextComponent = scoreTextComp;
     }
 
+    public void RegisterPlayerStats(PlayerStats stats) {
+        playerStats = stats;
+    }
+
+    public void RegisterRewardedAds(RewardedAds rA) {
+        rewardedAds = rA;
+    }
+
     public void WinGame() {
+        playerStats.canTakeDmg = false;
         ScoreSet();
         panelController.ActivateWin();
         int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
@@ -66,6 +87,16 @@ public class EndGameManager : MonoBehaviour
     public void LoseGame() {
         ScoreSet();
         panelController.ActivateLose();
+    }
+
+    public void AdLoseGame() {
+        ScoreSet();
+        if (rewardedAds.adNum > 0) {
+            rewardedAds.adNum--;
+            panelController.ActivateAdLose();
+        } else {
+            panelController.ActivateLose();
+        }
     }
 
     void ScoreSet() {
